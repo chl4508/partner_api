@@ -29,6 +29,9 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	//mongodb
+	implementation("org.springframework.boot:spring-boot-starter-data-mongodb:3.1.0")
+
 }
 
 tasks.withType<Test> {
