@@ -2,12 +2,15 @@ package cys.partner.api.controller;
 
 import cys.partner.api.application.service.ItemService;
 import cys.partner.api.entity.Item;
+import cys.partner.api.vo.CreateItemRequest;
 import cys.partner.api.vo.GetItemListRequest;
 import cys.partner.api.vo.GetItemRequest;
+import cys.partner.api.vo.UpdateItemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -66,5 +69,31 @@ public class ItemController {
     public List<Item> GetItemList(@ModelAttribute GetItemListRequest request)throws Exception{
         request.setMeCheck(true);
         return GetItemList("a9da7509-3649-4727-8353-c529cf94d96f", request);
+    }
+
+    /**
+     * 아이템 생성
+     * @param itemId
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "-/{itemid}")
+    public Item CreateItem(@PathVariable("itemid") String itemId, @RequestBody CreateItemRequest request)throws Exception{
+        request.setId(UUID.fromString(itemId));
+        return service.CreateItem(request);
+    }
+
+    /**
+     * 아이템 수정
+     * @param itemId
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @PutMapping(value = "-/{itemid}")
+    public Item UpdateItem(@PathVariable("itemid") String itemId, @RequestBody UpdateItemRequest request)throws Exception{
+        request.setId(UUID.fromString(itemId));
+        return service.UpdateItem(request);
     }
 }

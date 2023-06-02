@@ -34,8 +34,10 @@ dependencies {
 	implementation("org.springframework.data:spring-data-mongodb:4.1.0")
 	implementation("org.mongodb:mongodb-driver-sync:4.9.1")
 
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	//implementation("com.querydsl:querydsl-mongodb:4.4.0")
+	//implementation("org.springframework.boot:spring-boot-starter-jdbc:3.1.0")
+	//implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+	implementation("com.querydsl:querydsl-mongodb:4.4.0")
 
 }
 
