@@ -6,6 +6,7 @@ import cys.partner.api.vo.CreateItemRequest;
 import cys.partner.api.vo.GetItemListRequest;
 import cys.partner.api.vo.GetItemRequest;
 import cys.partner.api.vo.UpdateItemRequest;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,7 @@ public class ItemController {
      * @throws Exception
      */
     @GetMapping(value = "-/{itemid}", produces = APPLICATION_JSON_VALUE)
+    @Operation(summary = "아이템 조회", description = "아이템 정보가 조회됩니다.", tags = { "Item Controller" })
     public Item GetItem(@PathVariable("itemid") String itemId, @ModelAttribute GetItemRequest request)throws Exception {
         request.setItemId(itemId);
         return service.GetItem(request);
@@ -40,6 +42,7 @@ public class ItemController {
      * @throws Exception
      */
     @GetMapping(value = "me/{itemid}", produces = APPLICATION_JSON_VALUE)
+    @Operation(summary = "나의 아이템 조회", description = "나의 아이템 정보가 조회됩니다.", tags = { "Item Controller" })
     public Item GetItem(@PathVariable("itemid") String itemId)throws Exception {
         GetItemRequest request = new GetItemRequest();
         request.setMeCheck(true);
@@ -54,6 +57,7 @@ public class ItemController {
      * @throws Exception
      */
     @GetMapping(value = "{profileid}")
+    @Operation(summary = "아이템 리스트", description = "아이템 리스트가 조회됩니다.", tags = { "Item Controller" })
     public List<Item> GetItemList(@PathVariable("profileid") String profileId, @ModelAttribute GetItemListRequest request)throws Exception{
         request.setProfileId(profileId);
         return service.GetItemList(request);
@@ -66,6 +70,7 @@ public class ItemController {
      * @throws Exception
      */
     @GetMapping(value = "me")
+    @Operation(summary = "나의 아이템 리스트", description = "나의 아이템 리스트가 조회됩니다.", tags = { "Item Controller" })
     public List<Item> GetItemList(@ModelAttribute GetItemListRequest request)throws Exception{
         request.setMeCheck(true);
         return GetItemList("a9da7509-3649-4727-8353-c529cf94d96f", request);
@@ -79,6 +84,7 @@ public class ItemController {
      * @throws Exception
      */
     @PostMapping(value = "-/{itemid}")
+    @Operation(summary = "아이템 생성", description = "아이템을 생성합니다.", tags = { "Item Controller" })
     public Item CreateItem(@PathVariable("itemid") String itemId, @RequestBody CreateItemRequest request)throws Exception{
         request.setId(UUID.fromString(itemId));
         return service.CreateItem(request);
@@ -92,6 +98,7 @@ public class ItemController {
      * @throws Exception
      */
     @PutMapping(value = "-/{itemid}")
+    @Operation(summary = "아이템 수정", description = "아이템을 수정합니다.", tags = { "Item Controller" })
     public Item UpdateItem(@PathVariable("itemid") String itemId, @RequestBody UpdateItemRequest request)throws Exception{
         request.setId(UUID.fromString(itemId));
         return service.UpdateItem(request);

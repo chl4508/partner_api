@@ -39,6 +39,23 @@ dependencies {
 
 	implementation("com.querydsl:querydsl-mongodb:4.4.0")
 
+	//jwt
+	implementation("io.jsonwebtoken:jjwt:0.9.1")
+
+	//swagger
+	implementation("org.springdoc:springdoc-openapi-starter-common:2.1.0")
+	implementation("org.springdoc:springdoc-openapi-webmvc-core:1.7.0")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.1.0")
+	implementation("org.springdoc:springdoc-openapi-data-rest:1.7.0")
+
+
+
+	//implementation("org.springdoc:springdoc-openapi-ui:1.7.0")
+
+
+
+
 }
 
 tasks.withType<Test> {
