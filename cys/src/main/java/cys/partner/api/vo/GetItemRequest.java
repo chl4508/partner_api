@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class GetItemRequest {
-
     private String itemId;
 
     private boolean meCheck;

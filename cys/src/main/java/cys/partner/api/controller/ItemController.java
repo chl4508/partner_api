@@ -24,14 +24,16 @@ public class ItemController {
     /**
      * 아이템 조회 ( c#에서는 uuid 결과는 base62로 encoding 해서 보여주고있음)
      * @param itemId
-     * @param request
+     * @param meCheck
      * @return
      * @throws Exception
      */
     @GetMapping(value = "-/{itemid}", produces = APPLICATION_JSON_VALUE)
     @Operation(summary = "아이템 조회", description = "아이템 정보가 조회됩니다.", tags = { "Item Controller" })
-    public Item GetItem(@PathVariable("itemid") String itemId, @ModelAttribute GetItemRequest request)throws Exception {
+    public Item GetItem(@PathVariable("itemid") String itemId, @RequestParam(value = "mecheck", required = false) boolean meCheck)throws Exception {
+        GetItemRequest request = new GetItemRequest();
         request.setItemId(itemId);
+        request.setMeCheck(meCheck);
         return service.GetItem(request);
     }
 
@@ -44,9 +46,7 @@ public class ItemController {
     @GetMapping(value = "me/{itemid}", produces = APPLICATION_JSON_VALUE)
     @Operation(summary = "나의 아이템 조회", description = "나의 아이템 정보가 조회됩니다.", tags = { "Item Controller" })
     public Item GetItem(@PathVariable("itemid") String itemId)throws Exception {
-        GetItemRequest request = new GetItemRequest();
-        request.setMeCheck(true);
-        return GetItem(itemId, request);
+        return GetItem(itemId, true);
     }
 
     /**
