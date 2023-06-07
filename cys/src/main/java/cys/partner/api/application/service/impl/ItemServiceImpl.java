@@ -2,6 +2,8 @@ package cys.partner.api.application.service.impl;
 
 import cys.partner.api.application.repository.ItemRepository;
 import cys.partner.api.application.service.ItemService;
+import cys.partner.api.config.errorcodes.ErrorCode;
+import cys.partner.api.config.exception.CustomException;
 import cys.partner.api.entity.Item;
 import cys.partner.api.vo.CreateItemRequest;
 import cys.partner.api.vo.GetItemListRequest;
@@ -10,7 +12,6 @@ import cys.partner.api.vo.UpdateItemRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,7 +31,7 @@ public class ItemServiceImpl implements ItemService {
         UUID uuid = UUID.fromString(request.getItemId());
         Item result = itemRepository.findById(uuid).get();
         if(!request.isMeCheck() && result.getOption().getSaleStatus() != 3){
-             throw new FileNotFoundException("Not Found Item");
+            throw new CustomException(ErrorCode.NOT_FOUND, "Not Found Item");
         }
         return result;
     }
