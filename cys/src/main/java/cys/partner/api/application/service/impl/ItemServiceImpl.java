@@ -10,6 +10,8 @@ import cys.partner.api.vo.GetItemListRequest;
 import cys.partner.api.vo.GetItemRequest;
 import cys.partner.api.vo.UpdateItemRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,9 +29,10 @@ public class ItemServiceImpl implements ItemService {
      * @return
      */
     @Override
+    @Cacheable(value = "Item", key = "#itemid", cacheManager = "testCacheManager")
     public Item GetItem(GetItemRequest request) throws Exception {
         UUID uuid = UUID.fromString(request.getItemId());
-        Item result = itemRepository.findById(uuid).get();
+        Item result = itemRepository.findById(uuid).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND, "Not Found Item"));
         if(!request.isMeCheck() && result.getOption().getSaleStatus() != 3){
             throw new CustomException(ErrorCode.NOT_FOUND, "Not Found Item");
         }
@@ -54,6 +57,7 @@ public class ItemServiceImpl implements ItemService {
      * @throws Exception
      */
     @Override
+    @CachePut(value = "Item", key = "#itemid", cacheManager = "testCacheManager")
     public Item CreateItem(CreateItemRequest request) throws Exception {
         Item item = new Item();
         item.setId(request.getId());
@@ -72,6 +76,7 @@ public class ItemServiceImpl implements ItemService {
      * @throws Exception
      */
     @Override
+    @CachePut(value = "Item", key = "#itemid", cacheManager = "testCacheManager")
     public Item UpdateItem(UpdateItemRequest request) throws Exception {
         Item item = new Item();
         item.setId(request.getId());

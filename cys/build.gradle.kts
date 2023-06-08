@@ -49,9 +49,9 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-api:2.1.0")
 	implementation("org.springdoc:springdoc-openapi-data-rest:1.7.0")
 
+	//redis
+	implementation("org.springframework.boot:spring-boot-starter-data-redis:3.1.0")
 
-
-	//implementation("org.springdoc:springdoc-openapi-ui:1.7.0")
 
 
 
