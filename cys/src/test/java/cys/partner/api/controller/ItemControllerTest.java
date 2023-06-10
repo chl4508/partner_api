@@ -1,7 +1,7 @@
 package cys.partner.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cys.partner.api.vo.GetItemRequest;
+import cys.partner.api.entity.Item;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -14,6 +14,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -40,21 +45,21 @@ public class ItemControllerTest {
     @DisplayName("아이템 조회")
     public void getItem() throws Exception{
         // GIVEN
-        GetItemRequest itemRequest = new GetItemRequest();
-        itemRequest.setItemId("123e4567-e89b-12d3-a456-556642440000");
-        itemRequest.setMeCheck(false);
+        Item item = new Item();
+        item.setId(UUID.fromString("123e4567-e89b-12d3-a456-556642440000"));
+        item.setProfileId(UUID.fromString("a9da7509-3649-4727-8353-c529cf94d96f"));
 
         //WHEN
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/item/-/123e4567-e89b-12d3-a456-556642440000?mecheck=true")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(itemRequest))
+                .content(objectMapper.writeValueAsString(item))
         );
 
         //THEN
         resultActions.andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("id").value("123e4567-e89b-12d3-a456-556642440000"))
-                .andExpect(jsonPath("profileId").value("a9da7509-3649-4727-8353-c529cf94d96f"))
-                .andExpect(jsonPath("worldId").value("0154fd0b-067b-48db-9cbc-b83f3842e823"))
+                .andExpect(jsonPath("id").value(item.getId()))
+                .andExpect(jsonPath("profileId").value(UUID.fromString("a9da7509-3649-4727-8353-c529cf94d96f")))
+                .andExpect(jsonPath("worldId").value(UUID.fromString("0154fd0b-067b-48db-9cbc-b83f3842e823")))
                 .andExpect(jsonPath("assetType").value(1))
                 .andExpect(jsonPath("$.txt.title.ko").value("한글 제목"))
                 .andExpect(jsonPath("$.txt.desc.ko").value("한글 설명"))
@@ -64,7 +69,28 @@ public class ItemControllerTest {
 
     @Test
     @DisplayName("아이템 리스트")
-    public void getItemList() {
+    public void getItemList() throws Exception {
+        //GIVEN
+        List<Item> list = new ArrayList<>();
+        for(int i=0; i < 5; i++){
+            Item item = new Item();
+            item.setId(UUID.randomUUID());
+            item.setProfileId(UUID.randomUUID());
+            list.add(item);
+        }
+
+        //WHEN
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/item/123e4567-e89b-12d3-a456-556642440000")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(list))
+        );
+
+        // THEN
+        var result = resultActions.andExpect(status().is2xxSuccessful()).andReturn();
+
+        var resultLength = result.getResponse().getContentAsString().length();
+
+        assertThat(resultLength).isEqualTo(list.size());
     }
 
     @Test

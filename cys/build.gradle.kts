@@ -24,7 +24,8 @@ repositories {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	testImplementation("junit:junit:4.13.1")
+	testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+	testImplementation("org.assertj:assertj-core:3.23.1")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	annotationProcessor("org.projectlombok:lombok")
@@ -59,6 +60,6 @@ dependencies {
 
 }
 
-tasks.withType<Test> {
+tasks.named<Test>("test") {
 	useJUnitPlatform()
 }
