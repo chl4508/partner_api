@@ -34,7 +34,7 @@ public class Item {
 
     @Data
     @JsonInclude(JsonInclude.Include.NON_NULL) // => c# bsonIgnoreExtraElements
-    public class ItemTxt {
+    public static class ItemTxt {
         private LangTxt title;
 
         private LangTxt desc;
@@ -44,7 +44,7 @@ public class Item {
 
     @Data
     @JsonInclude(JsonInclude.Include.NON_NULL) // => c# bsonIgnoreExtraElements
-    public class Resource{
+    public static class Resource{
         private String manifest;
 
         private String preview;
@@ -54,7 +54,7 @@ public class Item {
 
     @Data
     @JsonInclude(JsonInclude.Include.NON_NULL) // => c# bsonIgnoreExtraElements
-    public class Option{
+    public static class Option{
         @Field(name="edit_date")
         private LocalDateTime editDate;
 
@@ -110,7 +110,7 @@ public class Item {
 
     @Data
     @JsonInclude(JsonInclude.Include.NON_NULL) // => c# bsonIgnoreExtraElements
-    public class Price{
+    public static class Price{
         private int type;
 
         private int amount;

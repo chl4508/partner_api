@@ -29,7 +29,7 @@ public class ItemServiceImpl implements ItemService {
      * @return
      */
     @Override
-    @Cacheable(value = "Item", key = "#itemid", cacheManager = "testCacheManager")
+    @Cacheable(value = "Item", key = "#request", cacheManager = "testCacheManager")
     public Item GetItem(GetItemRequest request) throws Exception {
         UUID uuid = UUID.fromString(request.getItemId());
         Item result = itemRepository.findById(uuid).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND, "Not Found Item"));
