@@ -57,15 +57,15 @@ public class ItemServiceImpl implements ItemService {
      * @throws Exception
      */
     @Override
-    @CachePut(value = "Item", key = "#itemid", cacheManager = "testCacheManager")
+    @CachePut(value = "Item", key = "#request", cacheManager = "testCacheManager")
     public Item CreateItem(CreateItemRequest request) throws Exception {
         Item item = new Item();
         item.setId(request.getId());
         item.setProfileId(UUID.randomUUID());
         item.setWorldId(UUID.randomUUID());
-        item.getTxt().setTitle(request.getTxt().getTitle());
-        item.getTxt().setDesc(request.getTxt().getDesc());
-        item.getOption().setCategory(request.getOption().getCategory().split(","));
+        item.setTxt(new Item.ItemTxt(request.getTxt().getTitle().ko, request.getTxt().getDesc().ko));
+        String[] cateArray = request.getOption().getCategory().split(",");
+        item.setOption(new Item.Option(cateArray));
         return itemRepository.insert(item);
     }
 
@@ -76,7 +76,7 @@ public class ItemServiceImpl implements ItemService {
      * @throws Exception
      */
     @Override
-    @CachePut(value = "Item", key = "#itemid", cacheManager = "testCacheManager")
+    @CachePut(value = "Item", key = "#request", cacheManager = "testCacheManager")
     public Item UpdateItem(UpdateItemRequest request) throws Exception {
         Item item = new Item();
         item.setId(request.getId());

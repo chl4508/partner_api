@@ -11,31 +11,37 @@ public class UpdateItemRequest {
     @JsonIgnore
     private UUID id;
 
-    private ItemTxt txt;
+    private UpdateItemTxt txt;
 
-    private Option option;
+    private UpdateItemOption option;
 
     @Data
-    public class ItemTxt{
+    public class UpdateItemTxt{
         private LangTxt title;
 
         private LangTxt desc;
 
         private String[] hashtag;
+
+        public UpdateItemTxt(){}
     }
 
     @Data
-    public class Option{
+    public class UpdateItemOption{
 
         private int version;
 
-        private Price price;
+        private UpdateItemPrice price;
+
+        public UpdateItemOption(){}
     }
 
     @Data
-    public class Price{
+    public class UpdateItemPrice{
         private int type;
 
         private int amount;
+
+        public UpdateItemPrice(){}
     }
 }

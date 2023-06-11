@@ -44,9 +44,16 @@ public class Item {
         public ItemTxt(){
 
         }
+
         public ItemTxt(String title, String desc){
             this.title = new LangTxt(title);
             this.desc = new LangTxt(desc);
+        }
+
+        public ItemTxt(String title, String desc, String[] hashtag){
+            this.title = new LangTxt(title);
+            this.desc = new LangTxt(desc);
+            this.hashtag = hashtag;
         }
 
 
@@ -115,6 +122,13 @@ public class Item {
         private String[] category;
 
         private Price price;
+
+        public Option(){
+
+        }
+        public Option(String[] category){
+            this.category = category;
+        }
 
     }
 

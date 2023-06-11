@@ -21,30 +21,34 @@ public class CreateItemRequest {
     @JsonIgnore
     private int assetType = 1;
 
-    private ItemTxt txt;
+    private CreateItemTxt txt;
 
-    private Resource resource;
+    private CreateItemResource resource;
 
-    private Option option;
+    private CreateItemOption option;
 
     @Data
-    public class ItemTxt{
+    public class CreateItemTxt{
         private LangTxt title;
 
         private LangTxt desc;
 
         private String[] hashtag;
+
+        public CreateItemTxt(){}
     }
 
     @Data
-    public class Resource{
+    public class CreateItemResource{
         private String preview;
 
         private String thumbnail;
+
+        public CreateItemResource(){}
     }
 
     @Data
-    public class Option{
+    public class CreateItemOption{
         private String templateId;
 
         private int templateVersion;
@@ -53,13 +57,25 @@ public class CreateItemRequest {
 
         private String Category;
 
-        private Price price;
+        private CreateItemPrice price;
+
+        public CreateItemOption(){
+
+        }
+
+        public CreateItemOption(CreateItemPrice price){
+            this.price = price;
+        }
+
     }
 
     @Data
-    public class Price{
+    public static class CreateItemPrice{
         private int type;
 
         private int amount;
+
+        public CreateItemPrice(){
+        }
     }
 }

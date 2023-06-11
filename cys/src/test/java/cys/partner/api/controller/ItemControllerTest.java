@@ -111,11 +111,59 @@ public class ItemControllerTest {
 
     @Test
     @DisplayName("아이템 생성")
-    void createItem() {
+    public void createItem() throws Exception{
+        // GIVEN
+        Item item = new Item();
+        item.setId(UUID.fromString("123e4567-e89b-12d3-a456-556642440000"));
+        item.setProfileId(UUID.fromString("a9da7509-3649-4727-8353-c529cf94d96f"));
+        item.setAssetType(1);
+        String[] hashTag = new String[]{"test", "test2"};
+        item.setTxt(new Item.ItemTxt("한글 제목", "한글 설명", hashTag));
+        item.setWorldId(UUID.randomUUID());
+
+        //WHEN
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.post("/item/-/123e4567-e89b-12d3-a456-556642440000")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(item))
+        );
+
+        //THEN
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(item.getId().toString()))
+                .andExpect(jsonPath("profileId").value(item.getProfileId().toString()))
+                .andExpect(jsonPath("worldId").value(item.getWorldId().toString()))
+                .andExpect(jsonPath("assetType").value(1))
+                .andExpect(jsonPath("txt.title.ko").value("한글 제목"))
+                .andExpect(jsonPath("txt.desc.ko").value("한글 설명"))
+        ;
     }
 
     @Test
     @DisplayName("아이템 수정")
-    void updateItem() {
+    public void updateItem() throws Exception{
+        // GIVEN
+        Item item = new Item();
+        item.setId(UUID.fromString("123e4567-e89b-12d3-a456-556642440000"));
+        item.setProfileId(UUID.fromString("a9da7509-3649-4727-8353-c529cf94d96f"));
+        item.setAssetType(1);
+        String[] hashTag = new String[]{"test", "test2"};
+        item.setTxt(new Item.ItemTxt("한글 제목", "한글 설명", hashTag));
+        item.setWorldId(UUID.randomUUID());
+
+        //WHEN
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.put("/item/-/123e4567-e89b-12d3-a456-556642440000")
+                //.contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(item))
+        );
+
+        //THEN
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(item.getId().toString()))
+                .andExpect(jsonPath("profileId").value(item.getProfileId().toString()))
+                //.andExpect(jsonPath("worldId").value(item.getWorldId().toString()))
+                .andExpect(jsonPath("assetType").value(1))
+                .andExpect(jsonPath("txt.title.ko").value("한글 제목"))
+                .andExpect(jsonPath("txt.desc.ko").value("한글 설명"))
+        ;
     }
 }
