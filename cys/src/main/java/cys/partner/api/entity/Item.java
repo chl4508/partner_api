@@ -40,6 +40,16 @@ public class Item {
         private LangTxt desc;
 
         private String[] hashtag;
+
+        public ItemTxt(){
+
+        }
+        public ItemTxt(String title, String desc){
+            this.title = new LangTxt(title);
+            this.desc = new LangTxt(desc);
+        }
+
+
     }
 
     @Data

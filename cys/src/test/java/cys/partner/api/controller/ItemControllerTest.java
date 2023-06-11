@@ -1,14 +1,22 @@
 package cys.partner.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cys.partner.api.application.service.ItemService;
 import cys.partner.api.entity.Item;
+import cys.partner.api.vo.GetItemListRequest;
+import cys.partner.api.vo.GetItemRequest;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.mongodb.core.aggregation.ConditionalOperators;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -19,16 +27,21 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.Mockito.when;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-@Disabled
+//@Disabled
 public class ItemControllerTest {
 
     @Autowired
     protected MockMvc mockMvc;
+
+    @MockBean
+    private ItemService itemService;
 
     @Autowired
     protected ObjectMapper objectMapper;
@@ -48,6 +61,9 @@ public class ItemControllerTest {
         Item item = new Item();
         item.setId(UUID.fromString("123e4567-e89b-12d3-a456-556642440000"));
         item.setProfileId(UUID.fromString("a9da7509-3649-4727-8353-c529cf94d96f"));
+        item.setAssetType(1);
+        item.setTxt(new Item.ItemTxt("한글 제목", "한글 설명"));
+
 
         //WHEN
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/item/-/123e4567-e89b-12d3-a456-556642440000?mecheck=true")
@@ -56,13 +72,13 @@ public class ItemControllerTest {
         );
 
         //THEN
-        resultActions.andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("id").value(item.getId()))
-                .andExpect(jsonPath("profileId").value(UUID.fromString("a9da7509-3649-4727-8353-c529cf94d96f")))
-                .andExpect(jsonPath("worldId").value(UUID.fromString("0154fd0b-067b-48db-9cbc-b83f3842e823")))
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(item.getId().toString()))
+                .andExpect(jsonPath("profileId").value(item.getProfileId().toString()))
+                //.andExpect(jsonPath("worldId").value(item.getWorldId().toString()))
                 .andExpect(jsonPath("assetType").value(1))
-                .andExpect(jsonPath("$.txt.title.ko").value("한글 제목"))
-                .andExpect(jsonPath("$.txt.desc.ko").value("한글 설명"))
+                .andExpect(jsonPath("txt.title.ko").value("한글 제목"))
+                .andExpect(jsonPath("txt.desc.ko").value("한글 설명"))
         ;
 
     }
@@ -79,18 +95,18 @@ public class ItemControllerTest {
             list.add(item);
         }
 
+        var request = new GetItemListRequest();
+        request.setProfileId("123e4567-e89b-12d3-a456-556642440000");
+        when(itemService.GetItemList(request)).thenReturn(list);
+
         //WHEN
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/item/123e4567-e89b-12d3-a456-556642440000")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(list))
         );
 
         // THEN
-        var result = resultActions.andExpect(status().is2xxSuccessful()).andReturn();
-
-        var resultLength = result.getResponse().getContentAsString().length();
-
-        assertThat(resultLength).isEqualTo(list.size());
+        var result = resultActions.andExpect(status().isOk())
+                        .andExpect(jsonPath("$.length()", equalTo(list.size())));
     }
 
     @Test

@@ -24,13 +24,14 @@ repositories {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
-	testImplementation("org.assertj:assertj-core:3.23.1")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	//testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+	//testImplementation("org.assertj:assertj-core:3.23.1")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	annotationProcessor("org.projectlombok:lombok")
 	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
 	//mongodb
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 	implementation("org.springframework.data:spring-data-mongodb:4.1.0")
