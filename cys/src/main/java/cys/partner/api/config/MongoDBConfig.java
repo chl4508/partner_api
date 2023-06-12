@@ -6,17 +6,21 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import org.bson.UuidRepresentation;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 
 @Configuration
 public class MongoDBConfig extends AbstractMongoClientConfiguration {
-    @Value("${mongodb.test.connectionString}")
+    @Value("${mongodb.connectionUri}")
     private String connectionUri;
 
-   /* @Bean
+    /*@Bean
     public MongoDatabaseFactory mongoDatabaseFactory() {
-        return new SimpleMongoClientDatabaseFactory(connectionString);
+        return new SimpleMongoClientDatabaseFactory(connectionUri);
     }
 
     @Bean
