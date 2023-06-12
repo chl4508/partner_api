@@ -2,10 +2,14 @@ package cys.partner.api.controller;
 
 import cys.partner.api.application.service.AssetService;
 import cys.partner.api.entity.Asset;
+import cys.partner.api.vo.GetAssetListRequest;
 import cys.partner.api.vo.GetAssetRequest;
+import cys.partner.api.vo.GetItemListRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -16,6 +20,13 @@ public class AssetController {
     @Autowired
     private AssetService assetService;
 
+    /**
+     * 애셋 조회
+     * @param assetId
+     * @param meCheck
+     * @return
+     * @throws Exception
+     */
     @GetMapping(value = "-/{assetid}", produces = APPLICATION_JSON_VALUE)
     @Operation(summary = "애셋 조회", description = "애셋 정보가 조회됩니다.", tags = {"Asset Controller"})
     public Asset GetAsset(@PathVariable("assetid") String assetId, @RequestParam(value = "mecheck", required = false) boolean meCheck) throws Exception{
@@ -23,5 +34,42 @@ public class AssetController {
         request.setAssetId(assetId);
         request.setMeCheck(meCheck);
         return assetService.GetAsset(request);
+    }
+
+    /**
+     * 나의 애셋 조회
+     * @param assetId
+     * @return
+     * @throws Exception
+     */
+    @GetMapping(value = "me/{assetid}", produces = APPLICATION_JSON_VALUE)
+    @Operation(summary = "나의 애셋 조회", description = "나의 애셋 정보가 조회됩니다.", tags = {"Asset Controller"})
+    public Asset GetAsset(@PathVariable("assetid") String assetId) throws Exception{
+        return GetAsset(assetId, true);
+    }
+
+    /**
+     * 애셋 리스트
+     * @param profileId
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @GetMapping(value = "{profileid}", produces = APPLICATION_JSON_VALUE)
+    public List<Asset> GetAssetList(@PathVariable("profileid") String profileId, @ModelAttribute GetAssetListRequest request)throws Exception{
+        request.setProfileId(profileId);
+        return assetService.GetAssetList(request);
+    }
+
+    /**
+     * 나의 애셋 리스트
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @GetMapping(value = "me", produces = APPLICATION_JSON_VALUE)
+    public List<Asset> GetAssetList(@ModelAttribute GetAssetListRequest request)throws Exception{
+        request.setMeCheck(true);
+        return GetAssetList("a9da7509-3649-4727-8353-c529cf94d96f", request);
     }
 }

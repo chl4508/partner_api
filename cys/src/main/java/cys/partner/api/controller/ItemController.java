@@ -19,7 +19,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("/item")
 public class ItemController {
     @Autowired
-    private ItemService service;
+    private ItemService itemService;
 
     /**
      * 아이템 조회 ( c#에서는 uuid 결과는 base62로 encoding 해서 보여주고있음)
@@ -34,7 +34,7 @@ public class ItemController {
         GetItemRequest request = new GetItemRequest();
         request.setItemId(itemId);
         request.setMeCheck(meCheck);
-        return service.GetItem(request);
+        return itemService.GetItem(request);
     }
 
     /**
@@ -60,7 +60,7 @@ public class ItemController {
     @Operation(summary = "아이템 리스트", description = "아이템 리스트가 조회됩니다.", tags = { "Item Controller" })
     public List<Item> GetItemList(@PathVariable("profileid") String profileId, @ModelAttribute GetItemListRequest request)throws Exception{
         request.setProfileId(profileId);
-        return service.GetItemList(request);
+        return itemService.GetItemList(request);
     }
 
     /**
@@ -87,7 +87,7 @@ public class ItemController {
     @Operation(summary = "아이템 생성", description = "아이템을 생성합니다.", tags = { "Item Controller" })
     public Item CreateItem(@PathVariable("itemid") String itemId, @RequestBody CreateItemRequest request)throws Exception{
         request.setId(UUID.fromString(itemId));
-        return service.CreateItem(request);
+        return itemService.CreateItem(request);
     }
 
     /**
@@ -101,6 +101,6 @@ public class ItemController {
     @Operation(summary = "아이템 수정", description = "아이템을 수정합니다.", tags = { "Item Controller" })
     public Item UpdateItem(@PathVariable("itemid") String itemId, @RequestBody UpdateItemRequest request)throws Exception{
         request.setId(UUID.fromString(itemId));
-        return service.UpdateItem(request);
+        return itemService.UpdateItem(request);
     }
 }
