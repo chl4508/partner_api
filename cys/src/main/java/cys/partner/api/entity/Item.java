@@ -138,6 +138,11 @@ public class Item {
         private int type;
 
         private int amount;
+
+        public Price(int type, int amount){
+            this.type = type;
+            this.amount = amount;
+        }
     }
 }
 

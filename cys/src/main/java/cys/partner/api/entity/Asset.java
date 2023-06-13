@@ -25,7 +25,7 @@ public class Asset {
     @Field(name = "asset_type")
     private int assetType;
 
-    private AssetTxt test;
+    private AssetTxt txt;
 
     private Resource Resource;
 
@@ -39,6 +39,19 @@ public class Asset {
         private LangTxt desc;
 
         private String[] hashtag;
+
+        public AssetTxt(){
+        }
+        public AssetTxt(String title, String desc){
+            this.title = new LangTxt(title);
+            this.desc = new LangTxt(desc);
+        }
+
+        public AssetTxt(String title, String desc, String[] hashtag){
+            this.title = new LangTxt(title);
+            this.desc = new LangTxt(desc);
+            this.hashtag = hashtag;
+        }
     }
 
     @Data
@@ -112,5 +125,10 @@ public class Asset {
         private int type;
 
         private int amount;
+
+        public Price(int type, int amount){
+            this.type = type;
+            this.amount = amount;
+        }
     }
 }

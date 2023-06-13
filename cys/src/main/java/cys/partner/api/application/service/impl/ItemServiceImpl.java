@@ -80,9 +80,8 @@ public class ItemServiceImpl implements ItemService {
     public Item UpdateItem(UpdateItemRequest request) throws Exception {
         Item item = new Item();
         item.setId(request.getId());
-        item.getTxt().setTitle(request.getTxt().getTitle());
-        item.getTxt().setDesc(request.getTxt().getDesc());
-        item.getOption().setVersion(request.getOption().getVersion());
+        item.setTxt(new Item.ItemTxt(request.getTxt().getTitle().ko, request.getTxt().getDesc().ko));
+        item.getOption().setPrice(new Item.Price(request.getOption().getPrice().getType(), request.getOption().getPrice().getAmount()));
         return itemRepository.save(item);
     }
 

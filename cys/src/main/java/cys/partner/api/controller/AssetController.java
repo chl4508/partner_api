@@ -2,14 +2,13 @@ package cys.partner.api.controller;
 
 import cys.partner.api.application.service.AssetService;
 import cys.partner.api.entity.Asset;
-import cys.partner.api.vo.GetAssetListRequest;
-import cys.partner.api.vo.GetAssetRequest;
-import cys.partner.api.vo.GetItemListRequest;
+import cys.partner.api.vo.*;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -71,5 +70,33 @@ public class AssetController {
     public List<Asset> GetAssetList(@ModelAttribute GetAssetListRequest request)throws Exception{
         request.setMeCheck(true);
         return GetAssetList("a9da7509-3649-4727-8353-c529cf94d96f", request);
+    }
+
+    /**
+     * 애셋 생성
+     * @param assetId
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "-/{assetid}")
+    @Operation(summary = "애셋 생성", description = "애셋을 생성합니다.", tags = {"asset Controller"})
+    public Asset CreateAsset(@PathVariable("assetid") String assetId, @RequestBody CreateAssetRequest request)throws Exception{
+        request.setId(UUID.fromString(assetId));
+        return assetService.CreateAsset(request);
+    }
+
+    /**
+     * 애셋 수정
+     * @param assetId
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @PutMapping(value = "-/{assetid}")
+    @Operation(summary = "애셋 수정", description = "애셋을 수정합니다.", tags = {"asset Controller"})
+    public Asset UpdateAsset(@PathVariable("assetid") String assetId, @RequestBody UpdateAssetRequest request)throws Exception{
+        request.setId(UUID.fromString(assetId));
+        return assetService.UpdateAsset(request);
     }
 }
