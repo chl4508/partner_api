@@ -36,11 +36,15 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 	implementation("org.springframework.data:spring-data-mongodb:4.1.0")
 	implementation("org.mongodb:mongodb-driver-sync:4.9.1")
-
-	//implementation("org.springframework.boot:spring-boot-starter-jdbc:3.1.0")
-	//implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-
 	implementation("com.querydsl:querydsl-mongodb:4.4.0")
+
+	// mysql
+	//implementation("mysql:mysql-connector-java:5.1.13")
+	implementation("com.mysql:mysql-connector-j:8.0.33")
+
+	//jpa
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
 
 	//jwt
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
