@@ -1,5 +1,6 @@
 package cys.partner.api.controller;
 
+
 import cys.partner.api.application.service.ItemService;
 import cys.partner.api.entity.Item;
 import cys.partner.api.vo.CreateItemRequest;
@@ -7,6 +8,8 @@ import cys.partner.api.vo.GetItemListRequest;
 import cys.partner.api.vo.GetItemRequest;
 import cys.partner.api.vo.UpdateItemRequest;
 import io.swagger.v3.oas.annotations.Operation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +21,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/item")
 public class ItemController {
+    private final Logger logger = LoggerFactory.getLogger(ItemController.class);
+
     @Autowired
     private ItemService itemService;
 

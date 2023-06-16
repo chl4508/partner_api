@@ -4,6 +4,8 @@ import cys.partner.api.application.service.AssetService;
 import cys.partner.api.entity.Asset;
 import cys.partner.api.vo.*;
 import io.swagger.v3.oas.annotations.Operation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/asset")
 public class AssetController {
+
+    private final Logger logger = LoggerFactory.getLogger(AssetController.class);
 
     @Autowired
     private AssetService assetService;

@@ -1,11 +1,15 @@
 package cys.partner.api.controller;
 
 import cys.partner.api.application.repository.TestRepository;
+import cys.partner.api.application.service.impl.AssetServiceImpl;
 import cys.partner.api.config.errorcodes.ErrorCode;
 import cys.partner.api.config.exception.CustomException;
 import cys.partner.api.entity.Test;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.Charset;
@@ -15,6 +19,7 @@ import java.util.Random;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/test")
 public class TestController {
 
