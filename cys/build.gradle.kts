@@ -45,7 +45,6 @@ dependencies {
 	//jpa
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
-
 	//jwt
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 
@@ -58,6 +57,9 @@ dependencies {
 
 	//redis
 	implementation("org.springframework.boot:spring-boot-starter-data-redis:3.1.0")
+
+	//nats
+	implementation("io.nats:jnats:2.16.12")
 
 
 

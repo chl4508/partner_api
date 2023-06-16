@@ -30,3 +30,14 @@ services:
         command:
             - --character-set-server=utf8mb4
             - --collation-server=utf8mb4_unicode_ci
+            -
+
+    nats:
+        image: nats
+        container_name: nats
+        hostname: nats
+        ports:
+            - "4222:4222"
+            - "8222:8222"
+        # command: "--cluster_name NATS --cluster nats://0.0.0.0:6222 --http_port 8222 -js"
+        command: "--http_port 8222 -js"
