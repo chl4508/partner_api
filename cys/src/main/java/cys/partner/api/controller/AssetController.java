@@ -59,6 +59,7 @@ public class AssetController {
      * @throws Exception
      */
     @GetMapping(value = "{profileid}", produces = APPLICATION_JSON_VALUE)
+    @Operation(summary = "애셋 리스트", description = "애셋 리스트가 조회됩니다.", tags = {"Asset Controller"})
     public List<Asset> GetAssetList(@PathVariable("profileid") String profileId, @ModelAttribute GetAssetListRequest request)throws Exception{
         request.setProfileId(profileId);
         return assetService.GetAssetList(request);
@@ -71,6 +72,7 @@ public class AssetController {
      * @throws Exception
      */
     @GetMapping(value = "me", produces = APPLICATION_JSON_VALUE)
+    @Operation(summary = "나의 애셋 리스트", description = "나의 애셋 리스트가 조회됩니다.", tags = {"Asset Controller"})
     public List<Asset> GetAssetList(@ModelAttribute GetAssetListRequest request)throws Exception{
         request.setMeCheck(true);
         return GetAssetList("a9da7509-3649-4727-8353-c529cf94d96f", request);
@@ -84,7 +86,7 @@ public class AssetController {
      * @throws Exception
      */
     @PostMapping(value = "-/{assetid}")
-    @Operation(summary = "애셋 생성", description = "애셋을 생성합니다.", tags = {"asset Controller"})
+    @Operation(summary = "애셋 생성", description = "애셋을 생성합니다.", tags = {"Asset Controller"})
     public Asset CreateAsset(@PathVariable("assetid") String assetId, @RequestBody CreateAssetRequest request)throws Exception{
         request.setId(UUID.fromString(assetId));
         return assetService.CreateAsset(request);
@@ -98,7 +100,7 @@ public class AssetController {
      * @throws Exception
      */
     @PutMapping(value = "-/{assetid}")
-    @Operation(summary = "애셋 수정", description = "애셋을 수정합니다.", tags = {"asset Controller"})
+    @Operation(summary = "애셋 수정", description = "애셋을 수정합니다.", tags = {"Asset Controller"})
     public Asset UpdateAsset(@PathVariable("assetid") String assetId, @RequestBody UpdateAssetRequest request)throws Exception{
         request.setId(UUID.fromString(assetId));
         return assetService.UpdateAsset(request);
