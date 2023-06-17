@@ -4,7 +4,6 @@ import cys.partner.api.application.repository.ItemRepository;
 import cys.partner.api.application.service.ItemService;
 import cys.partner.api.config.errorcodes.ErrorCode;
 import cys.partner.api.config.exception.CustomException;
-import cys.partner.api.controller.ItemController;
 import cys.partner.api.entity.Item;
 import cys.partner.api.vo.CreateItemRequest;
 import cys.partner.api.vo.GetItemListRequest;

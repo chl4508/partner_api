@@ -5,4 +5,6 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
+
 rootProject.name = "cys"
+include("meta")

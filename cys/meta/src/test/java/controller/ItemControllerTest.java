@@ -1,4 +1,4 @@
-package cys.partner.api.controller;
+package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cys.partner.api.application.service.ItemService;

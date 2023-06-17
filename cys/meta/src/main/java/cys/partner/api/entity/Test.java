@@ -1,8 +1,6 @@
 package cys.partner.api.entity;
 
-import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 

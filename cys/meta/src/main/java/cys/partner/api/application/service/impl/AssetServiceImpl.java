@@ -1,16 +1,12 @@
 package cys.partner.api.application.service.impl;
 
-import com.mongodb.client.result.UpdateResult;
 import cys.partner.api.application.service.AssetService;
-import cys.partner.api.controller.AssetController;
 import cys.partner.api.entity.Asset;
-import cys.partner.api.entity.Item;
 import cys.partner.api.vo.CreateAssetRequest;
 import cys.partner.api.vo.GetAssetListRequest;
 import cys.partner.api.vo.GetAssetRequest;
 import cys.partner.api.vo.UpdateAssetRequest;
 import lombok.RequiredArgsConstructor;
-import org.bson.BsonDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
