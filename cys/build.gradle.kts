@@ -1,5 +1,3 @@
-import org.gradle.api.tasks.bundling.Jar
-import org.springframework.boot.gradle.tasks.bundling.BootJar
 import org.springframework.boot.gradle.tasks.bundling.BootWar
 
 plugins {
@@ -53,11 +51,6 @@ subprojects{
 	dependencies {
 		implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 		implementation("org.springframework.boot:spring-boot-starter-web")
-		testImplementation("org.springframework.boot:spring-boot-starter-test")
-		compileOnly("org.projectlombok:lombok")
-		developmentOnly("org.springframework.boot:spring-boot-devtools")
-		annotationProcessor("org.projectlombok:lombok")
-		providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 
 		//mongodb
 		implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
@@ -87,10 +80,5 @@ subprojects{
 		//nats
 		implementation("io.nats:jnats:2.16.12")
 
-
-	}
-
-	tasks.named<Test>("test") {
-		useJUnitPlatform()
 	}
 }
