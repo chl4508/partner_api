@@ -79,6 +79,8 @@ subprojects{
 
 		//nats
 		implementation("io.nats:jnats:2.16.12")
+		implementation("io.nats:java-nats-streaming:2.2.3")
+
 
 	}
 }
