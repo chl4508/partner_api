@@ -3,10 +3,8 @@ package cys.partner.api.application.service.impl;
 import cys.partner.api.application.service.LandService;
 import cys.partner.api.entity.Land;
 import io.nats.client.JetStream;
-import io.nats.client.JetStreamManagement;
 import io.nats.client.JetStreamSubscription;
 import io.nats.client.Message;
-import io.nats.client.api.StreamConfiguration;
 import io.nats.streaming.NatsStreaming;
 import io.nats.streaming.Options;
 import io.nats.streaming.StreamingConnection;
@@ -31,15 +29,6 @@ public class LandServiceImpl implements LandService {
                 .build();
 
        try(StreamingConnection connection = NatsStreaming.connect(clusterId, clientId, options)){
-            // JetStream 컨텍스트 생성
-           JetStreamManagement jsm = connection.getNatsConnection().jetStreamManagement();
-
-           StreamConfiguration streamConfig = StreamConfiguration.builder()
-                   .name("test item")
-                   .subjects("item")
-                   .build();
-
-           jsm.addStream(streamConfig);
 
            //메시지 발행
            JetStream jetStream = connection.getNatsConnection().jetStream();
