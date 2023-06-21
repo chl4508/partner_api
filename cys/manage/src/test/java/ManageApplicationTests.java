@@ -1,6 +1,11 @@
+import cys.partner.ManageApplication;
 import org.junit.jupiter.api.Test;
-//@ContextConfiguration(classes = ManageApplication.class)
-//@SpringBootTest
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+
+
+@ContextConfiguration(classes = ManageApplication.class)
+@SpringBootTest
 class ManageApplicationTests {
 
 	@Test

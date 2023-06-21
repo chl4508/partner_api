@@ -3,7 +3,7 @@ import org.gradle.kotlin.dsl.named
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 import org.springframework.boot.gradle.tasks.bundling.BootWar
 
-plugins {
+plugins{
     id("java")
 }
 
