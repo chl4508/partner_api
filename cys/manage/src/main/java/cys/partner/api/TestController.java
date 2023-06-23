@@ -1,14 +1,12 @@
 package cys.partner.api;
 
 import cys.partner.service.TestService;
-import cys.partner.vo.Test;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -19,8 +17,12 @@ public class TestController {
     private final TestService testService;
 
     @GetMapping("/test/list")
-    public List<Test> GetTestList() throws Exception{
-        return testService.getTestList();
+    public ModelAndView GetTestList() throws Exception{
+        ModelAndView view = new ModelAndView();
+
+        view.setViewName("static/test/list");
+        view.addObject("list", testService.getTestList());
+        return view;
     }
 
 }
