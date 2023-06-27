@@ -1,11 +1,30 @@
 //express 모듈 불러오기
 const express = require("express");
+//mysql
+const mysql = require('mysql');
 //express 사용
 const app = express();
+
+const connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'admin',
+  database : 'meta'
+});
 
 //Express 4.16.0버전 부터 body-parser의 일부 기능이 익스프레스에 내장 body-parser 연결
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
+
+
+connection.connect();
+
+connection.query('SELECT * from item', (error, rows, fields) => {
+  if (error) throw error;
+  console.log('item info is: ', rows);
+});
+
+connection.end();
 
 
 //임시 데이터
