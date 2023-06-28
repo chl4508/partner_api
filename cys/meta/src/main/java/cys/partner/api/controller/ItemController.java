@@ -8,11 +8,15 @@ import cys.partner.api.vo.GetItemListRequest;
 import cys.partner.api.vo.GetItemRequest;
 import cys.partner.api.vo.UpdateItemRequest;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,7 +39,9 @@ public class ItemController {
      */
     @GetMapping(value = "-/{itemid}", produces = APPLICATION_JSON_VALUE)
     @Operation(summary = "아이템 조회", description = "아이템 정보가 조회됩니다.", tags = { "Item Controller" })
-    public Item GetItem(@PathVariable("itemid") String itemId, @RequestParam(value = "mecheck", required = false) boolean meCheck)throws Exception {
+    public Item GetItem(@PathVariable("itemid") String itemId, @RequestParam(value = "mecheck", required = false) boolean meCheck, final HttpServletResponse httpServletResponse)throws Exception {
+        httpServletResponse.addHeader("Cache-Control", "max-age=1");
+
         GetItemRequest request = new GetItemRequest();
         request.setItemId(itemId);
         request.setMeCheck(meCheck);
@@ -50,8 +56,8 @@ public class ItemController {
      */
     @GetMapping(value = "me/{itemid}", produces = APPLICATION_JSON_VALUE)
     @Operation(summary = "나의 아이템 조회", description = "나의 아이템 정보가 조회됩니다.", tags = { "Item Controller" })
-    public Item GetItem(@PathVariable("itemid") String itemId)throws Exception {
-        return GetItem(itemId, true);
+    public Item GetItem(@PathVariable("itemid") String itemId, final HttpServletResponse httpServletResponse)throws Exception {
+        return GetItem(itemId, true, httpServletResponse);
     }
 
     /**
@@ -63,9 +69,13 @@ public class ItemController {
      */
     @GetMapping(value = "{profileid}")
     @Operation(summary = "아이템 리스트", description = "아이템 리스트가 조회됩니다.", tags = { "Item Controller" })
-    public List<Item> GetItemList(@PathVariable("profileid") String profileId, @ModelAttribute GetItemListRequest request)throws Exception{
+    public ResponseEntity<List<Item>> GetItemList(@PathVariable("profileid") String profileId, @ModelAttribute GetItemListRequest request)throws Exception{
         request.setProfileId(profileId);
-        return itemService.GetItemList(request);
+        CacheControl cacheControl = CacheControl.maxAge(Duration.ofSeconds(1));
+
+        return ResponseEntity.ok()
+                .cacheControl(cacheControl)
+                .body(itemService.GetItemList(request));
     }
 
     /**
@@ -76,7 +86,7 @@ public class ItemController {
      */
     @GetMapping(value = "me")
     @Operation(summary = "나의 아이템 리스트", description = "나의 아이템 리스트가 조회됩니다.", tags = { "Item Controller" })
-    public List<Item> GetItemList(@ModelAttribute GetItemListRequest request)throws Exception{
+    public ResponseEntity<List<Item>> GetItemList(@ModelAttribute GetItemListRequest request)throws Exception{
         request.setMeCheck(true);
         return GetItemList("a9da7509-3649-4727-8353-c529cf94d96f", request);
     }
