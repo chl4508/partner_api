@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class ItemServiceImpl implements ItemService {
      */
     @Override
     @Cacheable(value = "Item", key = "#request", cacheManager = "testCacheManager")
+    @KafkaListener(topics = "#{Item.id}", groupId = "item")
     public Item GetItem(GetItemRequest request) throws Exception {
         UUID uuid = UUID.fromString(request.getItemId());
         Item result = itemRepository.findById(uuid).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND, "Not Found Item"));
