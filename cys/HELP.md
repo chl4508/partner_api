@@ -6,7 +6,7 @@ cys 파트너 front/back
 기본 베이스는 meta 모듈을 기본으로 back-end 기반
 그외에 서비스들에게 
 
-vue , jpa, restapi , mongodb, mysql, nats, node, spring security
+vue , jpa, restapi , mongodb, mysql, nats, node, spring security, kafka,zookeper, rabiitmq
 등 다양한 기술 적용 및 테스트
 
 
