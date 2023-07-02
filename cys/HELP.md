@@ -27,3 +27,14 @@ vert.x , webflux, spring cloud
 #### notion 정보
 
 * [CYS Notion Info](https://www.notion.so/Notion-2f5d5d68e0a64606a74ab2473c6f0f15)
+
+* R&D
+  * Vert.x
+  * Spring DI / IOC / SingleTon / AOP
+  * Spring / SpringBoot 실행 과정
+  * Isolation Level
+  * Kafka, zookeper
+  * RabbitMQ
+  * Spring Webflux
+
+
