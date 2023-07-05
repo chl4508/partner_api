@@ -37,5 +37,7 @@ vert.x , webflux, spring cloud
   * RabbitMQ
   * Spring Webflux
   * react vs angular vs vue
-
-
+  
+* 이력관리
+  *  경력기술서 갱신
+  * 
