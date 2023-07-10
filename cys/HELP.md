@@ -40,4 +40,4 @@ vert.x , webflux, spring cloud
   
 * 이력관리
   *  경력기술서 갱신
-  * 
+  *  면접준비.
