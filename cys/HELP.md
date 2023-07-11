@@ -11,7 +11,7 @@ vue , jpa, restapi , mongodb, mysql, nats, node, spring security, kafka,zookeper
 
 
 해볼예정 기술
-vert.x , webflux, spring cloud
+vert.x , grpc, webflux, spring cloud
 
 #### module 을통 한 여러 프로젝트
 
@@ -37,6 +37,7 @@ vert.x , webflux, spring cloud
   * RabbitMQ
   * Spring Webflux
   * react vs angular vs vue
+  * grpc
   
 * 이력관리
   *  경력기술서 갱신
