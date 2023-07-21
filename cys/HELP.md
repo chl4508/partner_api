@@ -39,6 +39,8 @@ vert.x , grpc, webflux, spring cloud
   * react vs angular vs vue
   * grpc
   * 오버로딩, 오버라이딩
+  * oracle package
+  * oracle procedure
   
 * 이력관리
   *  경력기술서 갱신 2023.07.13(사람인, 잡코리아)
